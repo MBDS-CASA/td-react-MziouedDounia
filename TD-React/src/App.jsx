@@ -24,9 +24,17 @@ function Header() {
   )
 }
 function MainContent() {
+  const now = new Date();
+  const day = now.toLocaleString('fr-FR', { weekday: 'long' });
+  const month = now.toLocaleString('fr-FR', { month: 'long' });
+  const year = now.getFullYear();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+
   return (
     <div>
-      <p>Ici, nous afficherons des informations interessantes </p>
+      <p>Bonjour, on est le {day}, {month}, {year} et il est {hours}:{minutes}:{seconds}</p>
     </div>
   );
 }
