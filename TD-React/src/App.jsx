@@ -1,28 +1,27 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import logoEmsi from '../public/logo.png'
 import viteLogo from '/vite.svg'
 import './App.css'
+import data from '../../data.json'
 
-
-// function Header(props) {
-//   let name = "Header"
-//   return (
-//     <header>
-//       <h1>My Header is {props.name}</h1>
-//     </header>
-//   )
-// }
+function getRandomItem(arr) {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
+}
 
 function Header() {
   return (
     <header>
-      <img src={logoEmsi} className="logo" alt="Emsi logo"  style={{ width:'380px', height: '120px' }}/>
+      <img src={logoEmsi} className="logo" alt="Emsi logo" style={{ width: '380px', height: '120px' }} />
       <h1>Introduction à React</h1>
       <h2>A la découverte des premières notions de React</h2>
     </header>
   )
 }
+
 function MainContent() {
   const now = new Date();
   const day = now.toLocaleString('fr-FR', { weekday: 'long' });
@@ -38,6 +37,18 @@ function MainContent() {
     </div>
   );
 }
+
+function GradeDetails({ item }) {
+  return (
+    <div className="grade-details">
+      <h3>{item.course}</h3>
+      <p>Étudiant: {item.student.firstname} {item.student.lastname}</p>
+      <p>Date: {item.date}</p>
+      <p>Note: {item.grade}</p>
+    </div>
+  );
+}
+
 function Footer() {
   const year = new Date().getFullYear();
 
@@ -47,35 +58,18 @@ function Footer() {
     </footer>
   );
 }
+
 function App() {
-  const [count, setCount] = useState(0)
+
+  const randomItem = getRandomItem(data);
 
   return (
     <>
       <div>
-        {/* <Header></Header> */}
-        {/* <Header name="Header from App"></Header> */}
         <Header></Header>
         <MainContent></MainContent>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <GradeDetails item={randomItem} />
       </div>
-      <h1>Vite + React Introduction</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
       <Footer></Footer>
     </>
   )
