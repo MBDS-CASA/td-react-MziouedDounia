@@ -23,6 +23,14 @@ function Header() {
     </header>
   )
 }
+function MainContent() {
+  return (
+    <div>
+      <p>Ici, nous afficherons des informations interessantes </p>
+    </div>
+  );
+}
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -32,6 +40,7 @@ function App() {
         {/* <Header></Header> */}
         {/* <Header name="Header from App"></Header> */}
         <Header></Header>
+        <MainContent></MainContent>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
