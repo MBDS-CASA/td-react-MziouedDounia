@@ -39,13 +39,14 @@ function MainContent() {
   );
 }
 function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer>
-      <p>Tous droits réservés - Mzioued Dounia</p>
+      <p>© {year} - Dounia.Mzioued, Tous droits réservés.</p>
     </footer>
   );
 }
-
 function App() {
   const [count, setCount] = useState(0)
 
