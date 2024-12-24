@@ -5,7 +5,7 @@ import reactLogo from './assets/react.svg'
 import logoEmsi from '../public/logo.png'
 import viteLogo from '/vite.svg'
 import './App.css'
-import data from '../../data.json'
+import data from '../data.json'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,6 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import DataTable from './component/DataTable'
 
 function getRandomItem(arr) {
   const randomIndex = Math.floor(Math.random() * arr.length);
@@ -102,64 +103,7 @@ function GradeDetails({ item }) {
     </div>
   );
 }
-function TableData({array}){
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-            <TableCell>Course</TableCell>
-            <TableCell align="right">First Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Note</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-          
-          {array.map((item) => (
-            <TableRow
-              key={item.course}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="item">
-                {item.course}
-              </TableCell>
-              <TableCell align="right">{item.student.firstname}</TableCell>
-              <TableCell align="right">{item.student.lastname}</TableCell>
-              <TableCell align="right">{item.date}</TableCell>
-              <TableCell align="right">{item.grade}</TableCell>
-            </TableRow>
-          ))}
-         
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
-  );
-}
 function Footer() {
   const year = new Date().getFullYear();
 
@@ -186,7 +130,7 @@ function App() {
       <MainContent activeItem={activeItem} />
       <GradeDetails item={randomItem} />
       <button onClick={updateRandomItem}>Changer élément aléatoire</button>
-      <TableData array={data}/>
+     <DataTable/>
     </div>
     <Footer />
   </>
