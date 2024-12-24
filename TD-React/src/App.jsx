@@ -11,27 +11,49 @@ function getRandomItem(arr) {
   const randomIndex = Math.floor(Math.random() * arr.length);
   return arr[randomIndex];
 }
-function Menu() {
-  const handleClick = (text) => {
-    alert(`Vous avez cliqué sur : ${text}`);
-  };
+// function Menu() {
+//   const handleClick = (text) => {
+//     alert(`Vous avez cliqué sur : ${text}`);
+//   };
 
+//   return (
+//     <nav className="menu">
+//       <ul>
+//         <li onClick={() => handleClick('Notes')}>Notes</li>
+//         <li onClick={() => handleClick('Etudiants')}>Etudiants</li>
+//         <li onClick={() => handleClick('Matières')}>Matières</li>
+//         <li onClick={() => handleClick('A propos')}>A propos</li>
+//       </ul>
+//     </nav>
+//   );
+// }
+
+function Menu({ activeItem, onClick }) {
+  const MenuItems = ['Notes', 'Etudiants', 'Matières', 'A propos'];
   return (
     <nav className="menu">
       <ul>
-        <li onClick={() => handleClick('Notes')}>Notes</li>
-        <li onClick={() => handleClick('Etudiants')}>Etudiants</li>
-        <li onClick={() => handleClick('Matières')}>Matières</li>
-        <li onClick={() => handleClick('A propos')}>A propos</li>
+        {MenuItems.map((item) => (
+          <li
+            key={item}
+            className={item === activeItem ? 'active' : null}
+            onClick={() => {
+              alert(`You clicked on ${item}`);
+              onClick(item);
+            }}
+          >
+            {item}
+          </li>
+        ))}
       </ul>
     </nav>
   );
 }
 
-function Header() {
+function Header({ activeItem, onClick }) {
   return (
     <header>
-      <Menu />
+      <Menu activeItem={activeItem} onClick={onClick} />
       <img src={logoEmsi} className="logo" alt="Emsi logo" style={{ width: '380px', height: '120px' }} />
       <h1>Introduction à React</h1>
       <h2>A la découverte des premières notions de React</h2>
@@ -56,7 +78,8 @@ function MainContent() {
   return (
     <div>
       <p>Bonjour, on est le {day}, {month}, {year} et il est {hours}:{minutes}:{seconds}</p>
-      <button onClick={updateDate}>Mettre à jour la date et l'heure</button>
+      <button onClick={updateDate}>Mettre à jour la date et heure</button>
+     
     </div>
   );
 }
@@ -84,6 +107,7 @@ function Footer() {
 
 function App() {
 
+  const [activeItem, setActiveItem] = useState('Notes');
   const [randomItem, setRandomItem] = useState(getRandomItem(data));
 
   const updateRandomItem = () => {
@@ -92,14 +116,14 @@ function App() {
 
   return (
     <>
-      <div>
-        <Header></Header>
-        <MainContent></MainContent>
-        <GradeDetails item={randomItem} />
-        <button onClick={updateRandomItem}>Changer élément aléatoire</button>
-      </div>
-      <Footer></Footer>
-    </>
+    <div>
+      <Header activeItem={activeItem} onClick={setActiveItem} />
+      <MainContent activeItem={activeItem} />
+      <GradeDetails item={randomItem} />
+      <button onClick={updateRandomItem}>Changer élément aléatoire</button>
+    </div>
+    <Footer />
+  </>
   )
 }
 
